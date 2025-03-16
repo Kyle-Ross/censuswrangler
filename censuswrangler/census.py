@@ -10,8 +10,8 @@ import os
 
 import pandas as pd
 
-from censuswrangler._config import Config
-from censuswrangler._data import Data
+from _config import Config
+from _data import Data
 
 
 class Census:
