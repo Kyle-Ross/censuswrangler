@@ -1,5 +1,4 @@
-- Config file:
-    - Census method to check config format (or check readiness)
-    - Census method to create config template at path
+- Config class to validate using pandera schema and use isin check of unique values as stored in the pack dict made in _pack
+- Census method to create config template at path
 - Update README.md
 - Publish to PyPi
