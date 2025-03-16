@@ -7,8 +7,8 @@ from icecream import ic
 from censuswrangler._config import Config
 
 
-class Datapack:
-    """Class for working with selections of the census datapack folder"""
+class Data:
+    """Class for working with selections of the census datapack data folder"""
 
     def __init__(self, folder_path: str, geo_type: str, config: Config):
         self.folder_path = folder_path
@@ -61,5 +61,5 @@ class Datapack:
 if __name__ == "__main__":
     folder_path = r"E:/Data/2021_GCP_all_for_AUS_short-header/2021 Census GCP All Geographies for AUS"
     config = Config("censuswrangler/config_template.csv")
-    datapack = Datapack(folder_path, "LGA", config)
+    datapack = Data(folder_path, "LGA", config)
     datapack.summary()

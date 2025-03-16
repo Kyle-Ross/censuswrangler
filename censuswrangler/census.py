@@ -11,7 +11,7 @@ import os
 import pandas as pd
 
 from censuswrangler._config import Config
-from censuswrangler._datapack import Datapack
+from censuswrangler._data import Data
 
 
 class Census:
@@ -33,7 +33,7 @@ class Census:
         self.col_type: str = col_type  # Can be 'short' or 'long'
         self.affix_type: str = affix_type  # Affix a 'prefix', 'suffix' or 'none' of the csv's file code to each col, and put arg on file name
         self.config: Config = Config(config_path)
-        self.datapack: Datapack = Datapack(census_folder_path, geo_type, self.config)
+        self.datapack: Data = Data(census_folder_path, geo_type, self.config)
         self._allowed_output_modes: Dict[Dict] = {
             "merge": {
                 "requirement": "First run the Census.wrangle method with mode = 'merge'"
