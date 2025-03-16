@@ -6,7 +6,7 @@ import pandas as pd
 from _schemas import metadata_schema
 
 
-def info(
+def pack(
     folder_path: str,
     must_haves: list = ["Metadata", "Readme"],
     expectation_description: str = "Census Datapack folder",
@@ -180,7 +180,7 @@ def info(
 
 if __name__ == "__main__":
     path = r"E:/Data/2021_GCP_all_for_AUS_short-header/"
-    info = info(path)
+    pack = pack(path)
 
     def print_dict_keys(d, indent=0):
         """Visualise the dictionary structure"""
@@ -191,4 +191,4 @@ if __name__ == "__main__":
             else:
                 print(" " * (indent + 4) + "...")
 
-    print_dict_keys(info)
+    print_dict_keys(pack)
