@@ -1,13 +1,13 @@
 import os
 
 
-def folder_info(
+def _pack_info(
     folder_path: str,
-    must_haves: list,
-    expectation_description: str,
+    must_haves: list = ["Metadata", "Readme"],
+    expectation_description: str = "Census Datapack folder",
     expected_folders: int = 3,
 ) -> dict[dict]:
-    """Grabs a path and builds a nested dictionary with info on each folder within. Checks against expectations."""
+    """Grabs a datapack path and builds a nested dictionary with info on each folder within. Checks against expectations."""
 
     def _check_dir(path: str) -> None:
         """Check that a string is a directory path."""
@@ -58,5 +58,5 @@ if __name__ == "__main__":
     from icecream import ic
 
     path = r"E:/Data/2021_GCP_all_for_AUS_short-header/"
-    info = folder_info(path, ["Metadata", "Readme"], "Census Datapack folder", 3)
+    info = _pack_info(path)
     ic(info)
