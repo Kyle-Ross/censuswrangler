@@ -11,6 +11,7 @@ python = "^3.12"
 pandas = "2.2.3"
 icecream = "^2.1.4"
 pandera = "^0.23.1"
+openpyxl = "^3.1.5"
 
 [build-system]
 requires = ["poetry-core"]
