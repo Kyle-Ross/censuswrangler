@@ -19,6 +19,6 @@ metadata_schema = pa.DataFrameSchema(
         "long": pa.Column(str),
         "datapackfile": pa.Column(str),
         "profiletable": pa.Column(str),
-        "columnheadingdescriptionprofile": pa.Column(str),
+        "columnheadingdescriptioninprofile": pa.Column(str),
     }
 )
