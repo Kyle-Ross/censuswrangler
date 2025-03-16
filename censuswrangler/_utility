@@ -6,8 +6,8 @@ def folder_info(
     must_haves: list,
     expectation_description: str,
     expected_folders: int = 3,
-) -> list[dict]:
-    """Grabs a path and builds a list of dictionaries with info on each folder within. Checks against expectations."""
+) -> dict[dict]:
+    """Grabs a path and builds a nested dictionary with info on each folder within. Checks against expectations."""
 
     def _check_dir(path: str) -> None:
         """Check that a string is a directory path."""
@@ -29,13 +29,18 @@ def folder_info(
     )
 
     # Gather info on each folder, build dict for each
-    folder_info = []
+    folder_info = {}
     for name in folder_names:
         # Get the full path
         path = os.path.join(folder_path, name)
         _check_dir(path)
 
-        # Categorise the folder
+        # Build the nested dict
+        info = {}
+        info["name"] = name
+        info["path"] = path
+
+        # Categorise the folder by type
         name_lower = name.lower()
         folder_type = ""
         if name_lower in ("metadata", "readme"):
@@ -43,14 +48,8 @@ def folder_info(
         else:
             folder_type = "data"
 
-        # Build the dict
-        info = {}
-        info["name"] = name
-        info["type"] = folder_type
-        info["path"] = path
-
-        # Append it to the output list
-        folder_info.append(info)
+        # Add that to the outer dict by type
+        folder_info[folder_type] = info
 
     return folder_info
 
