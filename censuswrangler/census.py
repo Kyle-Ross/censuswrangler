@@ -10,8 +10,9 @@ import os
 
 import pandas as pd
 
-from _config import Config
+from _pack import pack
 from _data import Data
+from _config import Config
 
 
 class Census:
@@ -19,21 +20,32 @@ class Census:
 
     def __init__(
         self,
-        census_folder_path: str,
+        datapack_path: str,
         config_path: str,
         geo_type: str,
         year: int,
         col_type: str = "short",
         affix_type: str = "prefix",
     ):
-        self.census_folder_path: str = census_folder_path  # Where the census folder is
-        self.config_path: str = config_path  # Where the config file is saved
-        self.geo_type: str = geo_type  # What spatial aggregation sub-folder to target
-        self.year: int = year  # Helps find columns in the datapack, which have the census year as a suffix
-        self.col_type: str = col_type  # Can be 'short' or 'long'
-        self.affix_type: str = affix_type  # Affix a 'prefix', 'suffix' or 'none' of the csv's file code to each col, and put arg on file name
+        # Where the census folder is
+        self.datapack_path: str = datapack_path
+        # Where the config file is saved
+        self.config_path: str = config_path
+        # What spatial aggregation sub-folder to target
+        self.geo_type: str = geo_type
+        # Helps find columns in the datapack, which have the census year as a suffix
+        self.year: int = year
+        # The type of column output to use. Can be 'short' or 'long'
+        self.col_type: str = col_type
+        # Affix a 'prefix', 'suffix' or 'none' of the csv's file code to each col, and put arg on file name
+        self.affix_type: str = affix_type
+        # Config object
         self.config: Config = Config(config_path)
-        self.datapack: Data = Data(census_folder_path, geo_type, self.config)
+        # All the info needed to work on the datapack
+        self.pack: dict = pack(datapack_path)
+        # Data object built from the target geo and config
+        self.data: Data = Data(self.pack["data"]["path"], geo_type, self.config)
+        # Allowed values for the output argument
         self._allowed_output_modes: Dict[Dict] = {
             "merge": {
                 "requirement": "First run the Census.wrangle method with mode = 'merge'"
@@ -46,7 +58,7 @@ class Census:
             },
         }
 
-        # Assertions
+        # Various assertions
         allowed_col_types = ("short", "long")
         assert col_type in allowed_col_types, (
             f"col_type argument '{col_type} not in allowed types {allowed_col_types}"
@@ -81,7 +93,7 @@ class Census:
         col_details = []
 
         # Looping through the per-file-code dictionaries, reading and filtering the resulting dataframes per the config
-        for file_details in self.datapack.details:
+        for file_details in self.data.details:
             # Prepare the dataframe
             file_path = file_details["full_path"]
             unfiltered_df = pd.read_csv(file_path)
@@ -184,7 +196,7 @@ class Census:
         # Used in the pivot mode as well
         if mode == "merge" or mode == "pivot" or mode == "all":
             # Get all prepared dataframes in a list
-            prepared_dfs = [detail["prepared_df"] for detail in self.datapack.details]
+            prepared_dfs = [detail["prepared_df"] for detail in self.data.details]
 
             # Loop through each dataframe in the list and merge with the 'merged_df'
             # Use the first df as the base and merge the rest on the primary key column
@@ -308,7 +320,7 @@ if __name__ == "__main__":
     from icecream import ic
 
     census = Census(
-        census_folder_path=r"E:/Data/2021_GCP_all_for_AUS_short-header/2021 Census GCP All Geographies for AUS",
+        datapack_path=r"E:/Data/2021_GCP_all_for_AUS_short-header/",
         config_path=r"censuswrangler/config_template.csv",
         geo_type="LGA",
         year=2021,
