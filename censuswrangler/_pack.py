@@ -3,6 +3,8 @@ import re
 
 import pandas as pd
 
+from _schemas import metadata_schema
+
 
 def info(
     folder_path: str,
@@ -157,6 +159,9 @@ def info(
     metadata_df = metadata_df.reset_index(drop=True)
     metadata_df.index = metadata_df.index + 1
 
+    # Validate the metadata df
+    validated_metadata_df = metadata_schema(metadata_df)
+
     # Start a dict with a key for each column containing a list of its unique values
     metadata_column_uniques = {
         col: metadata_df[col].unique().tolist() for col in metadata_df.columns
@@ -164,7 +169,7 @@ def info(
 
     # Pack that up into its own dict, with the df
     metadata_info = {}
-    metadata_info["df"] = metadata_df
+    metadata_info["df"] = validated_metadata_df
     metadata_info["columns"] = metadata_column_uniques
 
     # Add those to the dictionary
