@@ -1,4 +1,4 @@
-"""Functions for working with the census datapack folder"""
+"""Defines the Data class, used for for working with and accessing the census datapack folder."""
 
 import os
 
@@ -8,9 +8,16 @@ from censuswrangler.config import Config
 
 
 class Data:
-    """Class for working with selections of the census datapack data folder"""
+    """Class for accessing selections of the data inside a datapack. Prepares needed reference info per the details in the provided Config object."""
 
     def __init__(self, folder_path: str, geo_type: str, config: Config):
+        """Initialises the Data class.
+
+        Args:
+            folder_path (str): The path of the data folder inside the datapack.
+            geo_type (str): The geo type to access e.g. (LGA, SA1, SA2, etc).
+            config (Config): The Config object containing config information.
+        """
         self.folder_path = folder_path
 
         # Build a dictionary containing information of the files in the census datapack folder
