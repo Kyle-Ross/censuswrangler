@@ -4,11 +4,11 @@ import pandera as pa
 
 config_schema = pa.DataFrameSchema(
     {
-        "DATA_FILE_CODE": pa.Column(str),
-        "FIELD_SHORT": pa.Column(str),
-        "FIELD_LONG": pa.Column(str),
-        "VALUE_DESC": pa.Column(str),
-        "GROUP": pa.Column(str),
+        "SHORT": pa.Column(str),
+        "LONG": pa.Column(str),
+        "DATAPACKFILE": pa.Column(str),
+        "CUSTOM_DESCRIPTION": pa.Column(str),
+        "CUSTOM_GROUP": pa.Column(str),
     }
 )
 
