@@ -1,4 +1,4 @@
-"""Module for working with the config file"""
+"""Module for working with the config file."""
 
 import os
 import shutil
@@ -10,9 +10,14 @@ from _schemas import config_schema
 
 
 class Config:
-    """Class for working with the config file"""
+    """Class for accessing the config file, providing useful attributes and checking the validity of the configuration."""
 
     def __init__(self, config_path: str):
+        """Initialises the Config class object.
+
+        Args:
+            config_path (str): The file path of the config csv.
+        """
         # Check if the config file exists then read it into a DataFrame
         self.config_path: str = config_path
         self.config_path_abs: str = os.path.abspath(config_path)
@@ -76,6 +81,12 @@ class Config:
 def create_config_template(
     output_folder: str, file_name: str = "censuswrangler_config"
 ) -> None:
+    """Create a template config csv for use with the census
+
+    Args:
+        output_folder (str): The folder path where the config file will be created.
+        file_name (str, optional): The name of the config file, excluding file type. Defaults to "censuswrangler_config".
+    """
     assert os.path.isdir(output_folder), (
         f"The provided folder_path argument '{output_folder}' is not a directory or does not exist."
     )
@@ -86,9 +97,7 @@ def create_config_template(
         f"File '{output_path_abs}' already exists, file creation aborted."
     )
     shutil.copy(template_source, output_path)
-    print(
-        f"Successfully created censuswrangler config template: '{output_path_abs}'"
-    )
+    print(f"Successfully created censuswrangler config template: '{output_path_abs}'")
 
 
 if __name__ == "__main__":
