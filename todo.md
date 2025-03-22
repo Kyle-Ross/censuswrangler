@@ -1,4 +1,8 @@
-- Config class to validate using pandera schema and use isin check of unique values as stored in the pack dict made in _pack
-- Census method to create config template at path
+- Create docstrings for config.py
+- Confirm purpose of custom columns in config
+- Move tests out of `if __name__ == "__main__"' into testing area
+- Update samples
+- Create library interface
+- Confirm dependencies in poetry toml, split out dev dependencies
 - Update README.md
 - Publish to PyPi
