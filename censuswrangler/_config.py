@@ -1,6 +1,7 @@
 """Module for working with the config file"""
 
 import os
+import shutil
 
 from icecream import ic
 import pandas as pd
@@ -39,7 +40,9 @@ class Config:
         self.unique_long: list = self.df["LONG"].unique().tolist()
         self.unique_long_count: int = len(self.unique_long)
 
-        self.unique_custom_description: list = self.df["CUSTOM_DESCRIPTION"].unique().tolist()
+        self.unique_custom_description: list = (
+            self.df["CUSTOM_DESCRIPTION"].unique().tolist()
+        )
         self.unique_custom_description_count: int = len(self.unique_custom_description)
 
         self.unique_custom_group: list = self.df["CUSTOM_GROUP"].unique().tolist()
@@ -70,9 +73,27 @@ class Config:
         print(ln)
 
 
+def create_config_template(
+    output_folder: str, file_name: str = "censuswrangler_config"
+) -> None:
+    assert os.path.isdir(output_folder), (
+        f"The provided folder_path argument '{output_folder}' is not a directory or does not exist."
+    )
+    template_source = "censuswrangler/config_template.csv"
+    output_path = os.path.join(output_folder, file_name + ".csv")
+    assert not os.path.exists(output_path), (
+        f"File '{output_path}' already exists, file creation aborted."
+    )
+    shutil.copy(template_source, output_path)
+    print(
+        f"Successfully created censuswrangler config template: '{os.path.abspath(output_path)}'"
+    )
+
+
 if __name__ == "__main__":
     from icecream import ic
 
-    # Example usage with the config template
-    config = Config("censuswrangler/config_template.csv")
-    config.summary()
+    # # Example usage with the config template
+    # config = Config("censuswrangler/config_template.csv")
+    # config.summary()
+    create_config_template("test_output")
