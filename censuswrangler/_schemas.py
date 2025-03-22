@@ -1,4 +1,4 @@
-"""Defining pandera schemas which will be used for validation of things like the config file."""
+"""Defining pandera schemas which will be used for dataframe validation."""
 
 import pandera as pa
 
