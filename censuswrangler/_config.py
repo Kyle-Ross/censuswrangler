@@ -5,6 +5,8 @@ import os
 from icecream import ic
 import pandas as pd
 
+from _schemas import config_schema
+
 
 class Config:
     """Class for working with the config file"""
@@ -14,21 +16,7 @@ class Config:
         self.config_path: str = config_path
         self.config_path_abs: str = os.path.abspath(config_path)
         assert os.path.exists(config_path), f"Config file not found at: {config_path}"
-        self.df: pd.DataFrame = pd.read_csv(config_path)
-
-        # Check if the required columns are present
-        _required_columns = [
-            "SHORT",
-            "LONG",
-            "DATAPACKFILE",
-            "CUSTOM_DESCRIPTION",
-            "CUSTOM_GROUP",
-        ]
-        for column in _required_columns:
-            assert column in self.df.columns, f"Missing required column: {column}"
-
-        # List all columns except data file code
-        self._output_columns: list = _required_columns[1:]
+        self.df: pd.DataFrame = config_schema(pd.read_csv(config_path))
 
         # Cast all columns as strings
         self.df = self.df.astype(str)
