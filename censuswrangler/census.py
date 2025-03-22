@@ -12,7 +12,7 @@ import pandas as pd
 
 from _pack import pack
 from _data import Data
-from _config import Config
+from censuswrangler.config import Config
 
 
 class Census:

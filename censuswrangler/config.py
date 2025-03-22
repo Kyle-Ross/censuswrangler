@@ -81,12 +81,13 @@ def create_config_template(
     )
     template_source = "censuswrangler/config_template.csv"
     output_path = os.path.join(output_folder, file_name + ".csv")
+    output_path_abs = os.path.abspath(output_path)
     assert not os.path.exists(output_path), (
-        f"File '{output_path}' already exists, file creation aborted."
+        f"File '{output_path_abs}' already exists, file creation aborted."
     )
     shutil.copy(template_source, output_path)
     print(
-        f"Successfully created censuswrangler config template: '{os.path.abspath(output_path)}'"
+        f"Successfully created censuswrangler config template: '{output_path_abs}'"
     )
 
 
