@@ -47,7 +47,7 @@ class Data:
                     if (
                         file_info_dict["nameparts"]["geo_type"] == geo_type
                         and file_info_dict["nameparts"]["file_code"]
-                        in config.unique_data_file_code
+                        in config.unique_datapackfile
                         and file_info_dict["filetype"] == ".csv"
                     )
                 ]
