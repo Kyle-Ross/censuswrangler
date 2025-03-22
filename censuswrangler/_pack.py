@@ -1,3 +1,5 @@
+"""Defines the pack() function, which builds a dictionary of information on the datapack."""
+
 import os
 import re
 
@@ -12,10 +14,60 @@ def pack(
     expectation_description: str = "Census Datapack folder",
     expected_folders: int = 3,
 ) -> dict[dict]:
-    """Grabs a datapack path and builds a nested dictionary with info on each folder within. Checks against expectations."""
+    """Takes datapack path and builds a nested dictionary with info on each folder within.
+
+    Args:
+        folder_path (str): The path to the Datapack folder. This should be 3 Folders [ _data_, Metadata, Readme ]. The _data_ folder name can change depending on the downloaded datapack.
+        must_haves (list[str], optional): Folders that must appear in the datapack. Defaults to ["Metadata", "Readme"].
+        expectation_description (str, optional): An overall description of the expected Datapack structure. Defaults to "Census Datapack folder".
+        expected_folders (_type_, optional): The total count of folders expected in the Datapack. Defaults to 3.
+
+    Returns:
+        dict[dict]: Nested dictionary of structured datapack information.
+            data:
+                name: str
+                path: str
+            metadata:
+                name: str
+                path: str
+                files:
+                    geographic_descriptions:
+                        name: str
+                        ext: str
+                        path: str
+                    sequential_template:
+                        name: str
+                        ext: str
+                        path: str
+                    metadata:
+                        name: str
+                        ext: str
+                        path: str
+                        df: DataFrame
+                        columns:
+                            sequential: list
+                                List of unique values in the 'sequential' column.
+                            short: list
+                                List of unique values in the 'short' column.
+                            long: list
+                                List of unique values in the 'long' column.
+                            datapackfile: list
+                                List of unique values in the 'datapackfile' column.
+                            profiletable: list
+                                TList of unique values in the 'profiletable' column.
+                            columnheadingdescriptioninprofile: list
+                                List of unique values in the 'columnheadingdescriptioninprofile' column.
+            readme:
+                name: str
+                path: str
+    """
 
     def _check_dir(path: str) -> None:
-        """Check that a string is a directory path."""
+        """Check that a string is a directory path.
+
+        Args:
+            path (str): The path which which should be a directory.
+        """
         assert os.path.isdir(path), f"Error: '{path}' is not a directory."
 
     # Check the provided path
@@ -73,7 +125,13 @@ def pack(
             path = os.path.join(root, name + ext)
 
             def assert_type(ext: str, expected_ext: str, file_desc: str):
-                """Check that that an extension is what was expected"""
+                """Checks that that an extension is what was expected.
+
+                Args:
+                    ext (str): The file type to be checked.
+                    expected_ext (str): The expected file type/ext, like 'csv', 'xlsx', or 'txt'.
+                    file_desc (str): A description of the file being checked.
+                """
                 assert ext.lower() == expected_ext, (
                     f"Expected '{file_desc}' to be file type '{expected_ext}, instead got type '{ext}'"
                 )
@@ -113,6 +171,14 @@ def pack(
 
     # Find the sheet name that contains any combination of "cell" and "descriptors"
     def contains_cell_and_descriptors_in_sheet_name(sheet_name):
+        """Check if the sheet name contains both "cell" and "descriptors" (case insensitive).
+
+        Args:
+            sheet_name (str): The name of the sheet to check.
+
+        Returns:
+            bool: True if the sheet name contains both "cell" and "descriptors", False otherwise.
+        """
         return "cell" in sheet_name.lower() and "descriptors" in sheet_name.lower()
 
     sheet_name = next(
@@ -139,6 +205,14 @@ def pack(
 
     # Define a function to check if a row contains "Cell" and "Descriptors"
     def contains_cell_and_descriptors(row):
+        """Check if a given row contains any cells with both the strings "Cell" and "Descriptors".
+
+        Parameters:
+        row (pd.Series): A pandas Series representing a row of data.
+
+        Returns:
+        bool: True if the row contains both "Cell" and "Descriptors", False otherwise.
+        """
         contains_cell = row.astype(str).str.contains("Cell", case=False).any()
         contains_descriptors = (
             row.astype(str).str.contains("Descriptors", case=False).any()
