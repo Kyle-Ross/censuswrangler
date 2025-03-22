@@ -34,10 +34,6 @@ Age_75_84_yr_P,Age_groups_75_84_years_Persons,G01,75 - 84 years,Age - Person
 Age_85ov_M,Age_groups_85_years_and_over_Males,G01,> 85 years,Age - Male
 Age_85ov_F,Age_groups_85_years_and_over_Females,G01,> 85 years,Age - Female
 Age_85ov_P,Age_groups_85_years_and_over_Persons,G01,> 85 years,Age - Person
-Indigenous_P_Tot_M,Aboriginal_and_or_Torres_Strait_Islander_Persons_Total_Males,G01,Male,Indigenous Gender
-Indigenous_P_Tot_F,Aboriginal_and_or_Torres_Strait_Islander_Persons_Total_Females,G01,Female,Indigenous Gender
 P_Tot_Marrd_reg_marrge,PERSONS_Total_Married_in_a_registered_marriage,G06,Married,Relationship Type
 P_Tot_Married_de_facto,PERSONS_Total_Married_in_a_de_facto_marriage,G06,Couple,Relationship Type
 P_Tot_Not_married,PERSONS_Total_Not_married,G06,No relationship,Relationship Type
-CF_ChU15_a_Total_F,Couple_family_with_children_under_15_and_Total_Families,G29,Has children under 15,Couple Family Kids Y N
-CF_no_ChU15_a_Total_F,Couple_family_with_no_children_under_15_and_Total_Families,G29,Does not have children under 15,Couple Family Kids Y N
