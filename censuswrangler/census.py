@@ -105,9 +105,15 @@ class Census:
             # Get the config, and select the rows that match the current file code
             # Save the df as a list of lists, where each list the values in the row
             df = self.config.df
-            df = df[df["DATA_FILE_CODE"] == file_code]
-            df = df.drop(columns=["DATA_FILE_CODE"])
+            df = df[df["DATAPACKFILE"] == file_code]
+            df = df.drop(columns=["DATAPACKFILE"])
             config_rows = df.values.tolist()
+
+            # Store the column order
+            short_index: int = df.columns.get_loc("SHORT")
+            long_index: int = df.columns.get_loc("LONG")
+            custom_description_index: int = df.columns.get_loc("CUSTOM_DESCRIPTION")
+            custom_group_index: int = df.columns.get_loc("CUSTOM_GROUP")
 
             # Dictorary to store the old and new column names before renaming
             col_name_dict = {}
@@ -116,49 +122,44 @@ class Census:
             # Prepares a dictionary mainly used to create new column names depending on conditions
             for row in config_rows:
                 # Getting variables from list
-                old_col_name = row[0]  # FIELD_SHORT
-                new_col_name = row[1]  # FIELD_LONG
-                value_desc = row[2]  # VALUE_DESC
-                col_group = row[3]  # GROUP
+                col_short = row[short_index]  # SHORT
+                col_name = row[long_index]  # LONG
+                col_desc = row[custom_description_index]  # CUSTOM_DESCRIPTION
+                col_group = row[custom_group_index]  # CUSTOM_GROUP
 
                 # Setting the replacement column name conditionally depending on arguments
                 if self.col_type == "short":
-                    new_col_name = old_col_name
+                    col_name = col_short
                 elif self.col_type == "long":
-                    new_col_name = new_col_name
+                    col_name = col_name
                 else:
-                    print(
-                        "col_desc must be either 'short or 'long' - incorrect value entered. Reverting to short."
+                    raise ValueError(
+                        "col_type must be either 'short or 'long' - incorrect value entered."
                     )
-                    new_col_name = old_col_name
 
                 # Adding a prefix or suffix depending on arguments
                 if self.affix_type == "prefix":
-                    new_col_name = (
-                        file_details["nameparts"]["file_code"] + "_" + new_col_name
-                    )
+                    col_name = file_details["nameparts"]["file_code"] + "_" + col_name
                 elif self.affix_type == "suffix":
-                    new_col_name = (
-                        new_col_name + "_" + file_details["nameparts"]["file_code"]
-                    )
+                    col_name = col_name + "_" + file_details["nameparts"]["file_code"]
                 elif self.affix_type == "none":
                     # Leave var unchanged
-                    new_col_name = new_col_name
+                    col_name = col_name
                 else:
-                    print(
-                        "col_desc must be 'prefix', 'suffix' or 'none' - incorrect value entered. Reverting to none."
+                    raise ValueError(
+                        "affix_type must be 'prefix', 'suffix' or 'none' - incorrect value entered."
                     )
 
                 # Adding the old and new key combination to the outer dictionary
-                col_name_dict[old_col_name] = new_col_name
+                col_name_dict[col_short] = col_name
 
                 # Adding all column group dictionary to the associated list
                 # Creating the dictionary
                 col_detail = {
-                    "old_col": old_col_name,
-                    "new_col": new_col_name,
+                    "old_col": col_short,
+                    "new_col": col_name,
                     "group": col_group,
-                    "value_desc": value_desc,
+                    "col_desc": col_desc,
                 }
 
                 # Appending that to the list
@@ -242,13 +243,13 @@ class Census:
                 new_df = copy.deepcopy(self.merged_df[group_columns])
 
                 # Creating a basic dictionary with the old (key) and new names (value)
-                value_desc_dict = {}
+                col_desc_dict = {}
 
                 for ref_dict in col_details:
-                    value_desc_dict[f"{ref_dict['new_col']}"] = ref_dict["value_desc"]
+                    col_desc_dict[f"{ref_dict['new_col']}"] = ref_dict["col_desc"]
 
                 # Using that dictionary to rename columns
-                new_df = new_df.rename(columns=value_desc_dict)
+                new_df = new_df.rename(columns=col_desc_dict)
 
                 # Getting all columns that are not the primary key column for the pivoting function
                 cols_to_unpivot = new_df.columns.difference([primary_key_col])
