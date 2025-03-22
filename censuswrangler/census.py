@@ -58,7 +58,7 @@ class Census:
             },
         }
 
-        # Various assertions
+        # Basic parameter assertions
         allowed_col_types = ("short", "long")
         assert col_type in allowed_col_types, (
             f"col_type argument '{col_type} not in allowed types {allowed_col_types}"
@@ -68,6 +68,22 @@ class Census:
         assert affix_type in allowed_affix_types, (
             f"affix_type argument '{affix_type} not in allowed types {allowed_affix_types}"
         )
+
+        # Asserting that relevant config values exist in the metadata file of the pack
+        def _assert_valid_metadata(config_list: list, metadata_col: str):
+            """Common function for config metadata validation"""
+            valid_entries = self.pack["metadata"]["files"]["metadata"]["columns"][
+                metadata_col
+            ]
+            for entry in config_list:
+                assert entry in valid_entries, (
+                    f"'{entry}' in config file '{self.config.config_path_abs}' is not valid per datapack metadata in '{self.pack['metadata']['files']['metadata']['path']}', see sheet - 'Cell Descriptions Information'"
+                )
+
+        # Asserting each of the relevant config columns are valid
+        _assert_valid_metadata(self.config.unique_short, "short")
+        _assert_valid_metadata(self.config.unique_long, "long")
+        _assert_valid_metadata(self.config.unique_datapackfile, "datapackfile")
 
         # Dataframes to store the merged and pivoted data (once wrangle is called)
         self.merged_df: Optional[pd.DataFrame] = None
