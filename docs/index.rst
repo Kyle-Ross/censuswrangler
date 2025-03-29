@@ -12,6 +12,17 @@ documentation for details.
 
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 3
+   :caption: API
+   :hidden:
 
+   censuswrangler
+   census
+   config
+
+.. toctree::
+   :maxdepth: 1
+   :caption: SITE
+   :hidden:
+
+   gen_index
