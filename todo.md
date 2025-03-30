@@ -1,8 +1,4 @@
-- Create docstrings for config.py
-- Confirm purpose of custom columns in config
-- Move tests out of `if __name__ == "__main__"' into testing area
-- Update samples
-- Create library interface
-- Confirm dependencies in poetry toml, split out dev dependencies
+- Finish documentation with sphyinx
+    - Somewhere, confirm purpose of custom columns in config
 - Update README.md
 - Publish to PyPi
