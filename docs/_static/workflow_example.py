@@ -4,7 +4,7 @@ import censuswrangler as cw
 census = cw.Census(
     datapack_path=r"E:/Data/2021_GCP_all_for_AUS_short-header/",  # Datapack folder path
     config_path=r"censuswrangler/config_template.csv",  # Config file path
-    geo_type="LGA",  # 3 letter geotype code
+    geo_type="LGA",  # The geotype code to pull the data for
     year=2021,  # The census year
 )
 
