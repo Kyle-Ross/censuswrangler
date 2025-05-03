@@ -192,6 +192,6 @@ More details are available in the [documentation](www.google.com).
 You can see example output over in the repository\'s [sample
 folder](https://github.com/Kyle-Ross/censuswrangler/tree/main/samples).
 
-Good luck - and don\'t forget to give the
-[repository](https://github.com/Kyle-Ross/censuswrangler) a star if this
-helped you out (it all helps!).
+---
+
+Good luck - and don\'t forget to give the [repository](https://github.com/Kyle-Ross/censuswrangler) a star if this helped you out (it all helps!).
