@@ -1,4 +1,0 @@
-- Finish documentation with sphyinx
-    - Somewhere, confirm purpose of custom columns in config
-- Update README.md
-- Publish to PyPi
