@@ -45,9 +45,9 @@ autodoc_default_options = {
 }
 
 # Other autodoc config
-# autoclass_content = "class"
-# autodoc_class_signature = "separated"
-# autodoc_member_order = "groupwise"
+autoclass_content = "class"
+autodoc_class_signature = "separated"
+autodoc_member_order = "groupwise"
 
 # Set your HTML stuff here
 templates_path = ["_templates"]

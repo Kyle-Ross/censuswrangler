@@ -1,5 +1,5 @@
 """
-This module provides the Census class, which encapsulates common configuration and datapack objects,
+The census module provides the Census class, which encapsulates common configuration and datapack objects,
 and provides methods to gather, filter, join, and output census data based on specified configurations.
 """
 
