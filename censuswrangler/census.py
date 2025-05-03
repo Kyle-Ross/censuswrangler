@@ -16,7 +16,26 @@ from config import Config
 
 
 class Census:
-    """Census class to encapsulate common config and datapack objects, and the methods acting on them"""
+    """
+    The `Census` class is designed to facilitate the processing and manipulation of census data.
+    It integrates configuration and datapack objects, enabling users to gather, filter, join,
+    and output census data based on specified configurations. The class supports operations
+    such as merging and pivoting dataframes, and provides methods to validate and output the
+    processed data.
+
+    Attributes:
+        datapack_path (str): Path to the folder containing the census datapack.
+        config_path (str): Path to the configuration file.
+        geo_type (str): The spatial aggregation sub-folder to target (e.g., LGA, SA2).
+        year (int): The census year used to identify columns in the datapack.
+        col_type (str): The type of column output to use, either 'short' or 'long'. Defaults to 'short'.
+        affix_type (str): Specifies whether to add a 'prefix', 'suffix', or 'none' to column names. Defaults to 'prefix'.
+        config (Config): An instance of the `Config` class, representing the configuration file.
+        pack (dict): A dictionary containing all the information needed to work on the datapack.
+        data (Data): An instance of the `Data` class, built from the target geo and configuration.
+        merged_df (Optional[pd.DataFrame]): A dataframe to store merged data after the `wrangle` method is called.
+        pivoted_df (Optional[pd.DataFrame]): A dataframe to store pivoted data after the `wrangle` method is called.
+    """
 
     def __init__(
         self,
@@ -27,6 +46,23 @@ class Census:
         col_type: str = "short",
         affix_type: str = "prefix",
     ):
+        """
+        Initializes the `Census` class with the specified datapack and configuration paths,
+        geographic type, year, column type, and affix type. It also validates input parameters
+        and prepares the necessary objects for data processing.
+
+        Args:
+            datapack_path (str): Path to the folder containing the census datapack.
+            config_path (str): Path to the configuration file.
+            geo_type (str): The spatial aggregation sub-folder to target (e.g., LGA, SA2).
+            year (int): The census year used to identify columns in the datapack.
+            col_type (str, optional): The type of column output to use, either 'short' or 'long'. Defaults to 'short'.
+            affix_type (str, optional): Specifies whether to add a 'prefix', 'suffix', or 'none' to column names. Defaults to 'prefix'.
+
+        Raises:
+            AssertionError: If `col_type` is not one of the allowed values ('short', 'long').
+            AssertionError: If `affix_type` is not one of the allowed values ('prefix', 'suffix', 'none').
+        """
         # Where the census folder is
         self.datapack_path: str = datapack_path
         # Where the config file is saved

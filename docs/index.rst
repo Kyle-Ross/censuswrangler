@@ -16,9 +16,8 @@ documentation for details.
    :caption: API
    :hidden:
 
-   censuswrangler
    census
-   config
+   create_config_template
 
 .. toctree::
    :maxdepth: 1

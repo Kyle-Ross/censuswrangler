@@ -44,6 +44,11 @@ autodoc_default_options = {
     "undoc-members": False,
 }
 
+# Other autodoc config
+# autoclass_content = "class"
+# autodoc_class_signature = "separated"
+# autodoc_member_order = "groupwise"
+
 # Set your HTML stuff here
 templates_path = ["_templates"]
 html_theme = "sphinxawesome_theme"  # nltk_theme, furo, sphinxawesome_theme
@@ -69,4 +74,3 @@ add_module_names = True
 
 # Ref
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-
