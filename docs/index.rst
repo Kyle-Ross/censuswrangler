@@ -1,17 +1,20 @@
 About
 =================================
 
+CensusWrangler is the fast python API to your local copy of the Australian Census data.
+
+The use-case
+----------------------------------
+
 If you have any interest or career involving Australian data, you've likely had to deal with the challenging Census data structures.
 
 In the government's interest of maintaining privacy for all involved, they provide data as a series of hundreds of tables each at different levels of geographic aggregation.
 
 My experience has been that getting the right slice of data out this structure can be tedious and time-consuming. It drags out what would otherwise be a quick piece of adhoc analysis.
 
-Now, if you are lucky - your organisation already has a paid API, or database of the census data. But if not?
+If you're lucky - your organisation already has a paid API, or database of the census data. But if not?
 
 You can speed up the process with the CensusWrangler library. With quick & templatable configurations it helps you efficiently pull data out of the downloadable census datapacks.
-
-CensusWrangler is the fast API to your local copy of the Australian Census data.
 
 Features
 ----------------------------------
