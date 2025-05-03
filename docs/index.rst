@@ -76,24 +76,26 @@ Config fields
 Below is an sample example of the config ``csv```
 
 The first 3 fields come straight from the metadata:
-``SHORT`` - Short descriptor
-``LONG`` - Long descriptor
-``DATAPACKFILE`` - A code indicating which datapack file contains the field
+
+- ``SHORT`` - Short descriptor
+- ``LONG`` - Long descriptor
+- ``DATAPACKFILE`` - A code indicating which datapack file contains the field
 
 The other 2 are used to customise, group & simplify the names of fields in the CensusWrangler output:
-``CUSTOM_DESCRIPTION`` - Describes the data subset represented, Like 'Male' & 'Female'
-``CUSTOM_GROUP`` - Describes the subsets, like 'Gender'
+
+- ``CUSTOM_DESCRIPTION`` - Describes the data subset represented, Like 'Male' & 'Female'
+- ``CUSTOM_GROUP`` - Describes the subsets, like 'Gender'
 
 Put whatever you need in the custom fields, just make sure that each row is unique.
 
-.. list-table:: config_template.csv
+.. list-table::
    :widths: 20 40 10 15 15
    :header-rows: 1
 
    * - SHORT
      - LONG
      - DATAPACKFILE
-     - CUSTOMDESCRIPTION
+     - CUSTOM_DESCRIPTION
      - CUSTOM_GROUP
    * - Tot_P_M
      - Total_Persons_Males
@@ -126,7 +128,7 @@ Referencing Metadata
 
 It's super easy to copy what you want out of the metadata file that comes with each datapack. 
 
-1. Look in the ``/Metadata/`` folder for a file like ``Metadata_2021_GCP_DataPack_R1_R2.xlsx`` & open it
+1. In the datapack folder, look in the ``/Metadata/`` folder for a file like ``Metadata_2021_GCP_DataPack_R1_R2.xlsx``
 2. Go to the ``Cell Descriptors Information`` sheet
 3. Browse the fields, and copy over the ``SHORT``, ``LONG`` & ``DATAPACKFILE`` columns for your fields you want, into the config file
 4. Fill in the custom fields in the remaining columns of the config file
