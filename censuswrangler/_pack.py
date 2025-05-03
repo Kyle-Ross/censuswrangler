@@ -5,7 +5,7 @@ import re
 
 import pandas as pd
 
-from _schemas import metadata_schema
+from censuswrangler._schemas import metadata_schema
 
 
 def pack(

@@ -6,7 +6,7 @@ import shutil
 from icecream import ic
 import pandas as pd
 
-from _schemas import config_schema
+from censuswrangler._schemas import config_schema
 
 
 class Config:

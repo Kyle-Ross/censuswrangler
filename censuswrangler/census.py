@@ -10,9 +10,9 @@ import os
 
 import pandas as pd
 
-from _pack import pack
-from _data import Data
-from config import Config
+from censuswrangler._pack import pack
+from censuswrangler._data import Data
+from censuswrangler.config import Config
 
 
 class Census:

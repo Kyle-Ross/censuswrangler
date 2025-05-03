@@ -4,7 +4,7 @@ import os
 
 from icecream import ic
 
-from config import Config
+from censuswrangler.config import Config
 
 
 class Data:
