@@ -8,7 +8,7 @@
 
 ## About
 
-CensusWrangler is the fast python API to your local copy of the Australian Census data.
+CensusWrangler is the fast python interface to your local copy of the Australian Census data.
 
 ## The use-case
 
