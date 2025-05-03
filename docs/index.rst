@@ -29,7 +29,7 @@ Set-up
 Download a census datapack
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Visit the the `ABS Census DataPacks page <https://www.abs.gov.au/census/find-census-data/datapacks>`_ and download a datapack ``.zip``
+1. Visit the the `ABS Census DataPacks <https://www.abs.gov.au/census/find-census-data/datapacks>`_ page & download a datapack ``.zip``
 2. Extract the ``.zip`` into a single folder, containing nothing else
 
 When you are ready, your datapack folder should look something like this, with the name of the downloaded pack:
@@ -60,7 +60,7 @@ Usage
 
 Preparing a Config Template
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-We tell CensusWrangler what data to grab by preparing a config ``csv``.
+We tell CensusWrangler what data to grab by preparing a config ``csv``:
 
 Generate a config template
 """"""""""""""""""""""""""""""""""
@@ -135,6 +135,14 @@ It's super easy to copy what you want out of the metadata file that comes with e
 
 This file is also used to validate your config selections, so try & avoiding changing it as you go.
 
+Select a Census Geography
+""""""""""""""""""""""""""""""""""
+Visit the ABS `Census Geography Glossary <https://www.abs.gov.au/census/guide-census-data/geography/census-geography-glossary>`_.
+
+Determine the shortcode for the geography you are after. For example, 'Statistical Area Level 1' has code 'SA1'.
+
+This is also reflected by the folder names in the datapack - look for the name like ``\2021 Census GCP All Geographies for AUS\``.
+
 Usage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -143,6 +151,11 @@ Once the config file is ready, you can run CensusWrangler with just a few lines 
 .. literalinclude :: _static/workflow_example.py
    :language: python3
 
+More details are available in the `documentation <www.google.com>`_.
+
+_______________________________________________________
+
+Good luck - and don't forget to give the repository a star if this helped you out (it all helps!).
 
 
 .. toctree::
