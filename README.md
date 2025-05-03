@@ -1,10 +1,10 @@
 # CensusWrangler
 
-[![PyPI version](https://img.shields.io/pypi/v/glyphdeck)](https://pypi.org/project/glyphdeck/)
+[![PyPI version](https://img.shields.io/pypi/v/censuswrangler)](https://pypi.org/project/censuswrangler/)
 ![Python versions](https://img.shields.io/pypi/pyversions/glyphdeck)
-![License](https://img.shields.io/pypi/l/glyphdeck)
-[![Go to documentation](https://readthedocs.org/projects/glyphdeck/badge/)](https://glyphdeck.readthedocs.io/en/latest/)
-[![Read the Docs Badge](https://img.shields.io/badge/Read%20the%20Docs-8CA1AF?logo=readthedocs&logoColor=fff&style=flat)](https://glyphdeck.readthedocs.io/)
+![License](https://img.shields.io/pypi/l/censuswrangler)
+[![Go to documentation](https://readthedocs.org/projects/censuswrangler/badge/)](https://censuswrangler.readthedocs.io/en/latest/)
+[![Read the Docs Badge](https://img.shields.io/badge/Read%20the%20Docs-8CA1AF?logo=readthedocs&logoColor=fff&style=flat)](https://censuswrangler.readthedocs.io/en/latest/)
 
 ## About
 
