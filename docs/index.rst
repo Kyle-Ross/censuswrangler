@@ -153,9 +153,15 @@ Once the config file is ready, you can run CensusWrangler with just a few lines 
 
 More details are available in the `documentation <www.google.com>`_.
 
+Example Output
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can see example output over in the repository's `sample folder <https://github.com/Kyle-Ross/censuswrangler/tree/main/samples>`_.
+
 _______________________________________________________
 
-Good luck - and don't forget to give the repository a star if this helped you out (it all helps!).
+
+Good luck - and don't forget to give the `repository <https://github.com/Kyle-Ross/censuswrangler>`_ a star if this helped you out (it all helps!).
 
 
 .. toctree::
