@@ -133,8 +133,25 @@ class Census:
         )
 
     def wrangle(self, mode):
-        """Function to gather, filter & join specified census files using the config and datapack objects in the census class"""
+        """
+        Processes census data by gathering, filtering, and joining specified census files
+        based on the configuration and datapack objects in the Census class.
 
+        This method performs the following steps:
+
+        1. Validates the `mode` argument to ensure it is one of the allowed values ('merge', 'pivot', 'all').
+        2. Reads and filters data from census files based on the configuration.
+        3. Renames and prepares columns according to the specified column type (`col_type`) and affix type (`affix_type`).
+        4. Merges the prepared dataframes if the mode is 'merge' or 'all'.
+        5. Creates pivoted dataframes grouped by specified column groups if the mode is 'pivot' or 'all'.
+
+        Args:
+            mode (str): The processing mode, which determines the type of operation to perform ('merge', 'pivot', 'all').
+
+        Raises:
+            AssertionError: If the `mode` argument is not one of the allowed values.
+            ValueError: If invalid values are provided for `col_type` or `affix_type`.
+        """
         self._assert_mode_arg(mode)
 
         # ===========
@@ -324,7 +341,21 @@ class Census:
             self.pivoted_df = pivot_concat_df
 
     def to_csv(self, mode: str, output_folder: str):
-        """Function to output the csv files to a output folder"""
+        """
+        Outputs the processed census data to CSV files in the specified output folder.
+
+        This method generates CSV files based on the specified mode ('merge', 'pivot', or 'all')
+        and saves them to the provided output folder. The filenames include metadata such as
+        geographic type, column type, affix type, and the current timestamp.
+
+        Args:
+            mode (str): The output mode, which determines the type of data to export ('merge', 'pivot', 'all').
+            output_folder (str): The directory where the CSV files will be saved. Must be an existing directory.
+
+        Raises:
+            AssertionError: If the specified `output_folder` does not exist or is not a directory.
+            ValueError: If the `mode` argument is not one of the allowed values ('merge', 'pivot', 'all').
+        """
 
         self._assert_mode_arg(mode)
 
