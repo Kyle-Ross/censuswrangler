@@ -1,7 +1,7 @@
 """Module for working with the config file."""
 
+from io import StringIO
 import os
-import shutil
 
 from icecream import ic
 import pandas as pd
@@ -79,24 +79,80 @@ class Config:
 
 
 def create_config_template(
-    output_folder: str, file_name: str = "censuswrangler_config"
+    output_folder: str = None, file_name: str = "censuswrangler_config"
 ) -> None:
     """Create a template config csv for use with the census
 
     Args:
-        output_folder (str): The folder path where the config file will be created.
+        output_folder (str, optional): The folder path where the config file will be created. Defaults to the script location.
         file_name (str, optional): The name of the config file, excluding file type. Defaults to "censuswrangler_config".
     """
-    assert os.path.isdir(output_folder), (
-        f"The provided folder_path argument '{output_folder}' is not a directory or does not exist."
-    )
-    template_source = "censuswrangler/config_template.csv"
-    output_path = os.path.join(output_folder, file_name + ".csv")
+    # Determine is output_folder is blank
+    output_folder_is_set = False
+    if not (output_folder is None or output_folder == ""):
+        output_folder_is_set = True
+
+    # Allow none or blank but check folder if path is provided
+    if output_folder_is_set:
+        assert os.path.isdir(output_folder), (
+            f"The provided folder_path argument '{output_folder}' is not a directory or does not exist."
+        )
+
+    # The whole config as a string, then converted into a csv
+    csv_source = """SHORT,LONG,DATAPACKFILE,CUSTOM_DESCRIPTION,CUSTOM_GROUP
+Tot_P_M,Total_Persons_Males,G01,Male,Gender
+Tot_P_F,Total_Persons_Females,G01,Female,Gender
+Age_0_4_yr_M,Age_groups_0_4_years_Males,G01,0 - 4 years,Age - Male
+Age_0_4_yr_F,Age_groups_0_4_years_Females,G01,0 - 4 years,Age - Female
+Age_0_4_yr_P,Age_groups_0_4_years_Persons,G01,0 - 4 years,Age - Person
+Age_5_14_yr_M,Age_groups_5_14_years_Males,G01,5 - 14 years,Age - Male
+Age_5_14_yr_F,Age_groups_5_14_years_Females,G01,5 - 14 years,Age - Female
+Age_5_14_yr_P,Age_groups_5_14_years_Persons,G01,5 - 14 years,Age - Person
+Age_15_19_yr_M,Age_groups_15_19_years_Males,G01,15 - 19 years,Age - Male
+Age_15_19_yr_F,Age_groups_15_19_years_Females,G01,15 - 19 years,Age - Female
+Age_15_19_yr_P,Age_groups_15_19_years_Persons,G01,15 - 19 years,Age - Person
+Age_20_24_yr_M,Age_groups_20_24_years_Males,G01,20 - 24 years,Age - Male
+Age_20_24_yr_F,Age_groups_20_24_years_Females,G01,20 - 24 years,Age - Female
+Age_20_24_yr_P,Age_groups_20_24_years_Persons,G01,20 - 24 years,Age - Person
+Age_25_34_yr_M,Age_groups_25_34_years_Males,G01,25 - 34 years,Age - Male
+Age_25_34_yr_F,Age_groups_25_34_years_Females,G01,25 - 34 years,Age - Female
+Age_25_34_yr_P,Age_groups_25_34_years_Persons,G01,25 - 34 years,Age - Person
+Age_35_44_yr_M,Age_groups_35_44_years_Males,G01,35 - 44 years,Age - Male
+Age_35_44_yr_F,Age_groups_35_44_years_Females,G01,35 - 44 years,Age - Female
+Age_35_44_yr_P,Age_groups_35_44_years_Persons,G01,35 - 44 years,Age - Person
+Age_45_54_yr_M,Age_groups_45_54_years_Males,G01,45 - 54 years,Age - Male
+Age_45_54_yr_F,Age_groups_45_54_years_Females,G01,45 - 54 years,Age - Female
+Age_45_54_yr_P,Age_groups_45_54_years_Persons,G01,45 - 54 years,Age - Person
+Age_55_64_yr_M,Age_groups_55_64_years_Males,G01,55 - 64 years,Age - Male
+Age_55_64_yr_F,Age_groups_55_64_years_Females,G01,55 - 64 years,Age - Female
+Age_55_64_yr_P,Age_groups_55_64_years_Persons,G01,55 - 64 years,Age - Person
+Age_65_74_yr_M,Age_groups_65_74_years_Males,G01,65 - 74 years,Age - Male
+Age_65_74_yr_F,Age_groups_65_74_years_Females,G01,65 - 74 years,Age - Female
+Age_65_74_yr_P,Age_groups_65_74_years_Persons,G01,65 - 74 years,Age - Person
+Age_75_84_yr_M,Age_groups_75_84_years_Males,G01,75 - 84 years,Age - Male
+Age_75_84_yr_F,Age_groups_75_84_years_Females,G01,75 - 84 years,Age - Female
+Age_75_84_yr_P,Age_groups_75_84_years_Persons,G01,75 - 84 years,Age - Person
+Age_85ov_M,Age_groups_85_years_and_over_Males,G01,> 85 years,Age - Male
+Age_85ov_F,Age_groups_85_years_and_over_Females,G01,> 85 years,Age - Female
+Age_85ov_P,Age_groups_85_years_and_over_Persons,G01,> 85 years,Age - Person
+P_Tot_Marrd_reg_marrge,PERSONS_Total_Married_in_a_registered_marriage,G06,Married,Relationship Type
+P_Tot_Married_de_facto,PERSONS_Total_Married_in_a_de_facto_marriage,G06,Couple,Relationship Type
+P_Tot_Not_married,PERSONS_Total_Not_married,G06,No relationship,Relationship Type"""
+    csv_df = pd.read_csv(StringIO(csv_source))
+
+    # Prepare the output
+    output_path = file_name + ".csv"
+    if output_folder_is_set:
+        output_path = os.path.join(output_folder, output_path)
     output_path_abs = os.path.abspath(output_path)
+
+    # Check it isn't already there
     assert not os.path.exists(output_path), (
         f"File '{output_path_abs}' already exists, file creation aborted."
     )
-    shutil.copy(template_source, output_path)
+
+    # Create the file and print the success message
+    csv_df.to_csv(output_path, index=False)
     print(f"Successfully created censuswrangler config template: '{output_path_abs}'")
 
 
