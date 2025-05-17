@@ -93,7 +93,7 @@ We tell CensusWrangler what data to grab by preparing a config `csv`:
 You can quickly generate a template to get started:
 
 ``` python
-cw.create_config_template("C:\Config Folder\")
+cw.create_config_template(r"C:\Config Folder\")
 ```
 
 ### Config fields

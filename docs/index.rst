@@ -71,7 +71,7 @@ You can quickly generate a template to get started:
 
 .. code-block:: python
    
-   cw.create_config_template("C:\Config Folder\")
+   cw.create_config_template(r"C:\Config Folder\")
 
 Config fields
 """"""""""""""""""""""""""""""""""
