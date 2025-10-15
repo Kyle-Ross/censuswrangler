@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "censuswrangler"
-version = "1.0.3"
+version = "1.0.4"
 description = "CensusWrangler is the fast python API to your local copy of the Australian Census data."
 authors = ["Kyle Ross <107285758+Kyle-Ross@users.noreply.github.com>"]
 license = "MIT"
@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pandas = "2.2.3"
+pandas = "^2.2.3"
 icecream = "^2.1.4"
 pandera = "^0.23.1"
 openpyxl = "^3.1.5"
