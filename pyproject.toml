@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "censuswrangler"
-version = "1.0.4"
+version = "1.0.5"
 description = "CensusWrangler is the fast python API to your local copy of the Australian Census data."
 authors = ["Kyle Ross <107285758+Kyle-Ross@users.noreply.github.com>"]
 license = "MIT"
