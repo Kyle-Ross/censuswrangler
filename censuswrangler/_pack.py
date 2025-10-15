@@ -234,6 +234,20 @@ def pack(
     metadata_df.index = metadata_df.index + 1
 
     # Validate the metadata df
+    # Some datapacks contain numeric values (e.g. years) in the
+    # 'columnheadingdescriptioninprofile' column which will cause
+    # pandera to raise a SchemaError because the schema expects strings.
+    # Coerce any non-null values in that column to str while preserving
+    # actual NaNs so pandera's `required=False` can still allow missing
+    # values.
+    colname = "columnheadingdescriptioninprofile"
+    if colname in metadata_df.columns:
+        non_null_mask = metadata_df[colname].notna()
+        if non_null_mask.any():
+            metadata_df.loc[non_null_mask, colname] = (
+                metadata_df.loc[non_null_mask, colname].astype(str)
+            )
+
     validated_metadata_df = metadata_schema(metadata_df)
 
     # Start a dict with a key for each column containing a list of its unique values
